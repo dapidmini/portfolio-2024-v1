@@ -331,6 +331,11 @@
     padding-bottom: 30px !important;
 }
 
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-color: #41b7f4;
+    padding: 20%;
+    border-radius: 50%;
+}
 
 /*** Team ***/
 .team-item img {

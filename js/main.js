@@ -128,17 +128,8 @@
     modalTriggerButtons.forEach(elem => {
         elem.addEventListener('click', function(e) {
             const wrapper = elem.closest('[data-project-title]');
-
-            let modalSelector = '';
-            if (wrapper.classList.contains('first')) {
-                modalSelector = '#modal-project-multiple';
-            } else {
-                modalSelector = '#modal-project-single';
-            }
-            // inisialisasi dan aplikasikan popup modal gallery scr manual
-            // utk menghindari bug swiperjs ketika digabungkan dgn popup modal
-            const myModal = new bootstrap.Modal(modalSelector);
-            myModal.toggle();
+            
+            let modalSelector = wrapper.getAttribute('data-modal-target');
 
             const projectTitle = wrapper.getAttribute('data-project-title');
             const modalElem = document.querySelector(modalSelector);
@@ -146,74 +137,121 @@
             modalTitle.innerHTML = projectTitle;
             modalTitle.classList.add('text-capitalize');
 
-            if (wrapper.classList.contains('first')) {
-                var swiperMain = new Swiper(".swiper-main", {
-                    slidesPerView: 1,
-                    autoplay: false,
-                    loop: true,
-                    spaceBetween: 10,
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    },
-                });
-            
-                swiperMain.removeAllSlides();
-                const slideData = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
-                slideData.forEach(item => {
-                    const slide = document.createElement('div');
-                    slide.classList.add('swiper-slide', 'text-center');
-                    slide.innerHTML = `<img src="${item.value}">`;
-                    swiperMain.appendSlide(slide);
-                });
-
-
-                const thumbContainer = document.querySelector('.thumb-container');
-                thumbContainer.innerHTML = '';
-                const images = document.querySelectorAll('.swiper .swiper-slide img');
-                images.forEach((image, index) => {
-                    const div = document.createElement('div');
-                    div.classList.add('thumb-img', 'col-4');
-                    if (index == 0) {
-                        div.classList.add('active');
+            // swiper hanya diinisialisasi kalau dalam wrapper project tsb ada gambar2 yg akan dijadikan slideshow
+            const slideData = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
+            if (slideData) {
+                const carouselIndicatorContainer = modalElem.querySelector('.carousel-indicators');
+                const carouselInnerContainer = modalElem.querySelector('.carousel-inner');
+                console.log(slideData);
+                slideData.forEach((slide, key) => {
+                    // buat elemen tombol navigasi di bawah
+                    const carouselIndicatorBtn = document.createElement('button');
+                    carouselIndicatorBtn.setAttribute('data-bs-target', '#carouselContainer');
+                    carouselIndicatorBtn.setAttribute('data-bs-slide-to', key);
+                    if (key === 0) {
+                        carouselIndicatorBtn.classList.add('active');
+                        carouselIndicatorBtn.setAttribute('aria-current', 'true');
                     }
-                    // const img = document.createElement('img');
-                    // img.setAttribute('src', image.getAttribute('src'));
-                    div.innerHTML = image.outerHTML;
-                    thumbContainer.appendChild(div);
+                    const imageDesc = slide.getAttribute('data-page-desc');
+                    carouselIndicatorBtn.setAttribute('aria-label', imageDesc);
+                    carouselIndicatorContainer.append(carouselIndicatorBtn);
+
+                    // buat elemen utk menampung gambar slide carouselnya
+                    const carouselImgWrapper = document.createElement('div');
+                    const carouselImgElem = document.createElement('img');
+                    carouselImgElem.setAttribute('src', slide.value);
+                    carouselImgElem.setAttribute('alt', imageDesc);
+                    carouselImgElem.classList.add('d-block', 'w-100');
+                    carouselImgWrapper.append(carouselImgElem);
+                    carouselInnerContainer.append(carouselImgWrapper);
                 });
 
-                const thumbImages = thumbContainer.querySelectorAll('.thumb-img');
-                thumbImages.forEach((thumb, index) => {
-                    thumb.addEventListener('mouseover', function(e) {
-                        // hapus class 'active' dr semua .thumb-img
-                        const allElems = thumbContainer.querySelectorAll('.thumb-img');
-                        allElems.forEach(elem => {
-                            elem.classList.remove('active');
-                        });
-                        this.classList.add('active');
-                    });
-                    thumb.addEventListener('click', function(e) {
-                        swiperMain.slideTo(index);
-                    });
-                });
-            } else {
-                const modalBody = modalElem.querySelector('.modal-body');
-                modalBody.innerHTML = '';
-                const listItem = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
-                listItem.forEach(item => {
-                    const img = document.createElement('img');
-                    img.src = item.value;
-                    modalBody.appendChild(img);
-                });
+                // const carousel = new bootstrap.Carousel('#carouselContainer');
+
+
+                // var swiperMain = new Swiper(".swiper-main", {
+                //     slidesPerView: 1,
+                //     autoplay: false,
+                //     loop: true,
+                //     spaceBetween: 10,
+                //     navigation: {
+                //         nextEl: ".swiper-button-next",
+                //         prevEl: ".swiper-button-prev",
+                //     },
+                //     pagination: {
+                //         el: ".swiper-pagination",
+                //         clickable: true,
+                //     },
+                // });
+            
+                // swiperMain.removeAllSlides();
+                // slideData.forEach(item => {
+                //     const slide = document.createElement('div');
+                //     slide.classList.add('swiper-slide', 'text-center');
+                //     slide.innerHTML = `<img src="${item.value}">`;
+                //     swiperMain.appendSlide(slide);
+                // });
+
+
+    //         //     const thumbContainer = document.querySelector('.thumb-container');
+    //         //     thumbContainer.innerHTML = '';
+    //         //     const images = document.querySelectorAll('.swiper .swiper-slide img');
+    //         //     images.forEach((image, index) => {
+    //         //         const div = document.createElement('div');
+    //         //         div.classList.add('thumb-img', 'col-4');
+    //         //         if (index == 0) {
+    //         //             div.classList.add('active');
+    //         //         }
+    //         //         // const img = document.createElement('img');
+    //         //         // img.setAttribute('src', image.getAttribute('src'));
+    //         //         div.innerHTML = image.outerHTML;
+    //         //         thumbContainer.appendChild(div);
+    //         //     });
+
+    //         //     const thumbImages = thumbContainer.querySelectorAll('.thumb-img');
+    //         //     thumbImages.forEach((thumb, index) => {
+    //         //         thumb.addEventListener('mouseover', function(e) {
+    //         //             // hapus class 'active' dr semua .thumb-img
+    //         //             const allElems = thumbContainer.querySelectorAll('.thumb-img');
+    //         //             allElems.forEach(elem => {
+    //         //                 elem.classList.remove('active');
+    //         //             });
+    //         //             this.classList.add('active');
+    //         //         });
+    //         //         thumb.addEventListener('click', function(e) {
+    //         //             swiperMain.slideTo(index);
+    //         //         });
+    //         //     });
+    //         // } else {
+    //         //     const modalBody = modalElem.querySelector('.modal-body');
+    //         //     modalBody.innerHTML = '';
+    //         //     const listItem = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
+    //         //     listItem.forEach(item => {
+    //         //         const img = document.createElement('img');
+    //         //         img.src = item.value;
+    //         //         modalBody.appendChild(img);
+    //         //     });
             }
 
+            // inisialisasi dan aplikasikan popup modal gallery scr manual
+            // utk menghindari bug swiperjs ketika digabungkan dgn popup modal
+            const myModal = new bootstrap.Modal(modalSelector);
+            myModal.toggle();
+
+            const carouselElem = document.querySelector('#carouselContainer');
+
+            const carousel = new bootstrap.Carousel(carouselElem, {
+                interval: 2000,
+                touch: false
+            });
+    
         });
     });
     // end modalTriggerButtons.forEach
+
+    // $('#modal-project-multiple').on('shown.bs.modal', function (e) {
+    //     alert('show modal');
+    // });
+
 })(jQuery);
 

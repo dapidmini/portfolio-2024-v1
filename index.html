@@ -811,8 +811,7 @@
                 </div>
             </div>
             <div class="row g-4 portfolio-container wow fadeInUp" data-wow-delay="0.1s">
-                <div class="col-lg-4 col-md-6 portfolio-item first" data-project-title="website gotravelly"
-                data-modal-target="#modal-project-multiple">
+                <div class="col-lg-4 col-md-6 portfolio-item first" data-project-title="website gotravelly" data-modal-target="#modal-project-multiple">
                     <div class="portfolio-img rounded overflow-hidden">
                         <img class="img-fluid" src="img/projects/project-101.png" alt="">
                         <div class="portfolio-btn">
@@ -824,14 +823,22 @@
                             </a>
                         </div>
                         <div class="hidden-list">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-01.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-02.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-03.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-04.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-05.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-06.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-07.png">
-                            <input type="hidden" name="list-item" value="img/projects/gotravelly-08.png">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-01.png"
+                            data-page-desc="halaman utama">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-02.png"
+                            data-page-desc="halaman dashboard user">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-03.png"
+                            data-page-desc="daftar ulasan wisata">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-04.png"
+                            data-page-desc="halaman input ulasan baru">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-05.png"
+                            data-page-desc="edit profil user">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-06.png"
+                            data-page-desc="daftar ulasan kuliner">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-07.png"
+                            data-page-desc="halaman hasil pencarian">
+                            <input type="hidden" name="list-item" value="img/projects/gotravelly-08.png"
+                            data-page-desc="detail konten ulasan">
                         </div>
                     </div>
                 </div>
@@ -1196,14 +1203,41 @@
             </div>
 
             <div class="modal" tabindex="-1" id="modal-project-multiple">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-lg">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Modal title</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row">
+                            <div id="carouselContainer" class="carousel slide">
+                                <div class="carousel-indicators">
+                                  <!-- <button type="button" data-bs-target="#carouselContainer" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselContainer" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                  <button type="button" data-bs-target="#carouselContainer" data-bs-slide-to="2" aria-label="Slide 3"></button> -->
+                                </div>
+                                <div class="carousel-inner">
+                                  <!-- <div class="carousel-item active">
+                                    <img src="https://placehold.co/400" class="d-block w-100" alt="gambar carousel">
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://placehold.co/500" class="d-block w-100" alt="gambar carousel">
+                                  </div>
+                                  <div class="carousel-item">
+                                    <img src="https://placehold.co/600" class="d-block w-100" alt="gambar carousel">
+                                  </div> -->
+                                </div>
+                                <button class="carousel-control-prev rounded-circle" type="button" data-bs-target="#carouselContainer" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselContainer" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                            <!-- <div class="row">
                                 <div class="col-8">
                                     <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper swiper-main">
                                         <div class="swiper-wrapper"></div>
@@ -1215,7 +1249,7 @@
                                 <div class="col-4">
                                     <div class="thumb-container row g-2"></div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- /.swiper.swiper-project-01 -->
                         </div>
                     </div>
