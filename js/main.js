@@ -124,130 +124,107 @@
 
 
     // Start custom js by david santana
-    const modalTriggerButtons = document.querySelectorAll('[data-modal-target] [type="button"]');
-    modalTriggerButtons.forEach(elem => {
-        elem.addEventListener('click', function(e) {
-            const wrapper = elem.closest('[data-project-title]');
-            
-            let modalSelector = wrapper.getAttribute('data-modal-target');
+    // const modalTriggerButtons = document.querySelectorAll('[data-modal-target] [type="button"]');
+    // let modalSelector, modalElem;
+    // modalTriggerButtons.forEach(elem => {
+    //     elem.addEventListener('click', function(e) {
 
-            const projectTitle = wrapper.getAttribute('data-project-title');
-            const modalElem = document.querySelector(modalSelector);
-            const modalTitle = modalElem.querySelector('.modal-title');
-            modalTitle.innerHTML = projectTitle;
-            modalTitle.classList.add('text-capitalize');
+    //         // // inisialisasi dan aplikasikan popup modal gallery scr manual
+    //         // // utk menghindari bug swiperjs ketika digabungkan dgn popup modal
+    //         // const myModal = new bootstrap.Modal(modalSelector);
+    //         // myModal.toggle();
 
-            // swiper hanya diinisialisasi kalau dalam wrapper project tsb ada gambar2 yg akan dijadikan slideshow
-            const slideData = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
-            if (slideData) {
-                const carouselIndicatorContainer = modalElem.querySelector('.carousel-indicators');
-                const carouselInnerContainer = modalElem.querySelector('.carousel-inner');
-                console.log(slideData);
-                slideData.forEach((slide, key) => {
-                    // buat elemen tombol navigasi di bawah
-                    const carouselIndicatorBtn = document.createElement('button');
-                    carouselIndicatorBtn.setAttribute('data-bs-target', '#carouselContainer');
-                    carouselIndicatorBtn.setAttribute('data-bs-slide-to', key);
-                    if (key === 0) {
-                        carouselIndicatorBtn.classList.add('active');
-                        carouselIndicatorBtn.setAttribute('aria-current', 'true');
-                    }
-                    const imageDesc = slide.getAttribute('data-page-desc');
-                    carouselIndicatorBtn.setAttribute('aria-label', imageDesc);
-                    carouselIndicatorContainer.append(carouselIndicatorBtn);
+    //         // const carouselElem = document.querySelector('#carouselContainer');
 
-                    // buat elemen utk menampung gambar slide carouselnya
-                    const carouselImgWrapper = document.createElement('div');
-                    const carouselImgElem = document.createElement('img');
-                    carouselImgElem.setAttribute('src', slide.value);
-                    carouselImgElem.setAttribute('alt', imageDesc);
-                    carouselImgElem.classList.add('d-block', 'w-100');
-                    carouselImgWrapper.append(carouselImgElem);
-                    carouselInnerContainer.append(carouselImgWrapper);
-                });
-
-                // const carousel = new bootstrap.Carousel('#carouselContainer');
-
-
-                // var swiperMain = new Swiper(".swiper-main", {
-                //     slidesPerView: 1,
-                //     autoplay: false,
-                //     loop: true,
-                //     spaceBetween: 10,
-                //     navigation: {
-                //         nextEl: ".swiper-button-next",
-                //         prevEl: ".swiper-button-prev",
-                //     },
-                //     pagination: {
-                //         el: ".swiper-pagination",
-                //         clickable: true,
-                //     },
-                // });
-            
-                // swiperMain.removeAllSlides();
-                // slideData.forEach(item => {
-                //     const slide = document.createElement('div');
-                //     slide.classList.add('swiper-slide', 'text-center');
-                //     slide.innerHTML = `<img src="${item.value}">`;
-                //     swiperMain.appendSlide(slide);
-                // });
-
-
-    //         //     const thumbContainer = document.querySelector('.thumb-container');
-    //         //     thumbContainer.innerHTML = '';
-    //         //     const images = document.querySelectorAll('.swiper .swiper-slide img');
-    //         //     images.forEach((image, index) => {
-    //         //         const div = document.createElement('div');
-    //         //         div.classList.add('thumb-img', 'col-4');
-    //         //         if (index == 0) {
-    //         //             div.classList.add('active');
-    //         //         }
-    //         //         // const img = document.createElement('img');
-    //         //         // img.setAttribute('src', image.getAttribute('src'));
-    //         //         div.innerHTML = image.outerHTML;
-    //         //         thumbContainer.appendChild(div);
-    //         //     });
-
-    //         //     const thumbImages = thumbContainer.querySelectorAll('.thumb-img');
-    //         //     thumbImages.forEach((thumb, index) => {
-    //         //         thumb.addEventListener('mouseover', function(e) {
-    //         //             // hapus class 'active' dr semua .thumb-img
-    //         //             const allElems = thumbContainer.querySelectorAll('.thumb-img');
-    //         //             allElems.forEach(elem => {
-    //         //                 elem.classList.remove('active');
-    //         //             });
-    //         //             this.classList.add('active');
-    //         //         });
-    //         //         thumb.addEventListener('click', function(e) {
-    //         //             swiperMain.slideTo(index);
-    //         //         });
-    //         //     });
-    //         // } else {
-    //         //     const modalBody = modalElem.querySelector('.modal-body');
-    //         //     modalBody.innerHTML = '';
-    //         //     const listItem = wrapper.querySelectorAll('.hidden-list input[type="hidden"]');
-    //         //     listItem.forEach(item => {
-    //         //         const img = document.createElement('img');
-    //         //         img.src = item.value;
-    //         //         modalBody.appendChild(img);
-    //         //     });
-            }
-
-            // inisialisasi dan aplikasikan popup modal gallery scr manual
-            // utk menghindari bug swiperjs ketika digabungkan dgn popup modal
-            const myModal = new bootstrap.Modal(modalSelector);
-            myModal.toggle();
-
-            const carouselElem = document.querySelector('#carouselContainer');
-
-            const carousel = new bootstrap.Carousel(carouselElem, {
-                interval: 2000,
-                touch: false
-            });
+    //         // const carousel = new bootstrap.Carousel(carouselElem, {
+    //         //     interval: 2000,
+    //         //     touch: false
+    //         // });
     
+    //     });
+    // });
+    // // end modalTriggerButtons.forEach
+
+    const modalTriggerButtons = document.querySelectorAll('[data-project-title] [type="button"]');
+    modalTriggerButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalWrapper = button.closest('[data-project-title]');
+            let slideData = [];
+            const projectItems = modalWrapper.querySelectorAll('.hidden-list input[type="hidden"]');
+            projectItems.forEach((item, index) => {
+                const obj = {
+                    src: item.value,
+                    alt: item.getAttribute('data-desc'),
+                };
+                slideData.push(obj);
+            });
+
+            adjustModalContent(button, slideData);
+            initCarousel(slideData);
+            console.log('slide data', slideData);
         });
     });
-    // end modalTriggerButtons.forEach
+
+    // function ini dijalankan setelah popup modal ditampilkan
+    // popup modal diisi dengan carousel yang berisi dengan gambar2 dari project tersebut
+    function adjustModalContent(elem) {
+        // susun data yg dibutuhkan (img src dan alt) menjadi array of object agar mudah digunakan seterusnya
+        const wrapper = elem.closest('[data-project-title]');
+
+        const modalSelector = wrapper.getAttribute('data-bs-target');
+        const modalElem = document.querySelector(modalSelector);
+
+        const projectTitle = wrapper.getAttribute('data-project-title');
+        const modalTitle = modalElem.querySelector('.modal-title');
+        modalTitle.innerHTML = projectTitle;
+        modalTitle.classList.add('text-capitalize');
+    }
+
+    // Function to dynamically add carousel items
+    function initCarousel(images) {
+        const carouselInner = document.querySelector('.carousel-inner');
+        const carouselIndicators = document.querySelector('.carousel-indicators');
+        carouselInner.innerHTML = '';
+        carouselIndicators.innerHTML = '';
+
+        let active = true;
+        images.forEach((image, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.classList.add('carousel-item');
+            if (active) {
+                carouselItem.classList.add('active');
+                active = false;
+            }
+
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            img.classList.add('d-block', 'img-fluid');
+
+            const labelWrapper = document.createElement('div');
+            const label = document.createElement('h5');
+            label.innerHTML = image.alt;
+            labelWrapper.classList.add('carousel-caption', 'd-none', 'd-md-block');
+            labelWrapper.appendChild(label);
+
+            carouselItem.appendChild(img);
+            carouselItem.appendChild(labelWrapper);
+            carouselInner.appendChild(carouselItem);
+
+            const indicator = document.createElement('button');
+            indicator.type = 'button';
+            indicator.setAttribute('data-bs-target', '#carouselContainer');
+            indicator.setAttribute('data-bs-slide-to', index);
+            indicator.classList.add('active', 'dot');
+            if (active) {
+                indicator.classList.add('active');
+            }
+
+            carouselIndicators.appendChild(indicator);
+        });
+    }
+    // end function initCarousel
+
 
     // $('#modal-project-multiple').on('shown.bs.modal', function (e) {
     //     alert('show modal');

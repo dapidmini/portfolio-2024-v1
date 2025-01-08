@@ -337,6 +337,13 @@
     border-radius: 50%;
 }
 
+.modal-tall .modal-dialog {
+    height: 90%;
+}
+.modal-tall .modal-content {
+    height: 100%;
+}
+
 /*** Team ***/
 .team-item img {
     transition: .5s;
