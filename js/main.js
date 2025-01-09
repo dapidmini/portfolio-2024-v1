@@ -154,7 +154,8 @@
             projectItems.forEach((item, index) => {
                 const obj = {
                     src: item.value,
-                    alt: item.getAttribute('data-desc'),
+                    title: item.getAttribute('data-img-title'),
+                    desc: item.getAttribute('data-img-desc'),
                 };
                 slideData.push(obj);
             });
@@ -196,18 +197,22 @@
                 active = false;
             }
 
+            const imgWrapper = document.createElement('div');
             const img = document.createElement('img');
             img.src = image.src;
-            img.alt = image.alt;
+            img.alt = image.title;
             img.classList.add('d-block', 'img-fluid');
+            imgWrapper.appendChild(img);
+            imgWrapper.classList.add('d-flex', 'justify-content-center', 'align-items-center');
 
             const labelWrapper = document.createElement('div');
             const label = document.createElement('h5');
-            label.innerHTML = image.alt;
-            labelWrapper.classList.add('carousel-caption', 'd-none', 'd-md-block');
+            label.innerHTML = image.desc;
+            label.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
             labelWrapper.appendChild(label);
+            labelWrapper.classList.add('carousel-caption', 'd-none', 'd-md-block');
 
-            carouselItem.appendChild(img);
+            carouselItem.appendChild(imgWrapper);
             carouselItem.appendChild(labelWrapper);
             carouselInner.appendChild(carouselItem);
 
