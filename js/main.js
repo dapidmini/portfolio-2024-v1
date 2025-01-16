@@ -146,9 +146,11 @@
     // // end modalTriggerButtons.forEach
 
     const modalTriggerButtons = document.querySelectorAll('[data-project-title] [type="button"]');
+    console.log('buttons', modalTriggerButtons);
     modalTriggerButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modalWrapper = button.closest('[data-project-title]');
+            console.log('click', modalWrapper);
             let slideData = [];
             const projectItems = modalWrapper.querySelectorAll('.hidden-list input[type="hidden"]');
             projectItems.forEach((item, index) => {
@@ -161,6 +163,7 @@
             });
 
             adjustModalContent(button, slideData);
+            console.log('debug 1', slideData);
             initCarousel(slideData);
             console.log('slide data', slideData);
         });
@@ -172,7 +175,7 @@
         // susun data yg dibutuhkan (img src dan alt) menjadi array of object agar mudah digunakan seterusnya
         const wrapper = elem.closest('[data-project-title]');
 
-        const modalSelector = wrapper.getAttribute('data-bs-target');
+        const modalSelector = elem.getAttribute('data-bs-target');
         const modalElem = document.querySelector(modalSelector);
 
         const projectTitle = wrapper.getAttribute('data-project-title');
