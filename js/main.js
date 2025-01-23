@@ -146,11 +146,9 @@
     // // end modalTriggerButtons.forEach
 
     const modalTriggerButtons = document.querySelectorAll('[data-project-title] [type="button"]');
-    console.log('buttons', modalTriggerButtons);
     modalTriggerButtons.forEach(button => {
         button.addEventListener('click', () => {
             const modalWrapper = button.closest('[data-project-title]');
-            console.log('click', modalWrapper);
             let slideData = [];
             const projectItems = modalWrapper.querySelectorAll('.hidden-list input[type="hidden"]');
             projectItems.forEach((item, index) => {
@@ -163,9 +161,7 @@
             });
 
             adjustModalContent(button, slideData);
-            console.log('debug 1', slideData);
             initCarousel(slideData);
-            console.log('slide data', slideData);
         });
     });
 
@@ -186,6 +182,7 @@
 
     // Function to dynamically add carousel items
     function initCarousel(images) {
+        console.log('images', images);
         const carouselInner = document.querySelector('.carousel-inner');
         const carouselIndicators = document.querySelector('.carousel-indicators');
         carouselInner.innerHTML = '';
@@ -207,6 +204,7 @@
             img.classList.add('d-block', 'img-fluid');
             imgWrapper.appendChild(img);
             imgWrapper.classList.add('d-flex', 'justify-content-center', 'align-items-center');
+            console.log('img', img);
 
             const labelWrapper = document.createElement('div');
             const label = document.createElement('h5');
@@ -214,6 +212,7 @@
             label.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
             labelWrapper.appendChild(label);
             labelWrapper.classList.add('carousel-caption', 'd-none', 'd-md-block');
+            console.log('label', label);
 
             carouselItem.appendChild(imgWrapper);
             carouselItem.appendChild(labelWrapper);
