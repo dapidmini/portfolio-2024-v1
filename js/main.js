@@ -234,6 +234,7 @@
 
     // when the project showcase container's content is changed
     const projectShowcaseContainer = document.querySelector('.masonry-container');
+    console.log('debug', projectShowcaseContainer);
     projectShowcaseContainer.addEventListener('change', function() {
         console.log('showcase changed');
     });
