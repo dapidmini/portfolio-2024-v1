@@ -232,6 +232,12 @@
     }
     // end function initCarousel
 
+    // when the project showcase container's content is changed
+    const projectShowcaseContainer = document.querySelector('.masonry-container');
+    projectShowcaseContainer.addEventListener('change', function() {
+        console.log('showcase changed');
+    });
+
 
     // $('#modal-project-multiple').on('shown.bs.modal', function (e) {
     //     alert('show modal');
